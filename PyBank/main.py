@@ -2,36 +2,51 @@ import os
 import csv 
 
 # read in the file
-    # create month and value variables
-# total number of months in dataset
-# net total amount of Profits/Losses
-# greatest increase/decrease over the entire period
-
-# read in the file
 budget_csv = os.path.join("Resources", "budget_data.csv")
 with open(budget_csv) as csvfile:
     csvreader = csv.reader(csvfile, delimiter= ",")
 
     # reading the header first
     header = next(csvreader)
+    next_line = next(csvreader)
 
-    # getting count
-    #count = len(list(csvreader))
-    #print(count)
-
-    # getting net profit and count
+    # needed variables 
     net= 0
     months_count = 0
     greatest_inc = 0
     greatest_dec = 0
-   
+    last_month = int(next_line[-1])
+    this_month = int(next_line[+1])
+    
     for row in csvreader:
-        months_count += 1
-        net += int(row[1])
-        
-        change = int(row[1])
-        if change > greatest_inc:
-            greatest_inc = int(row[1])
-            greatest_inc_month = row[0]
 
-    print(greatest_inc_month,greatest_inc)  
+        # getting months count
+        months_count += 1
+
+        # getting net total 
+        net += int(row[1])
+        avg_change = net / (months_count )
+       
+    
+
+
+
+    # printing statements 
+    print("Finacial Analysis")
+    print("------------------------------------")
+    print(f"Total Months: {months_count}")
+    print(f"Total: ${net}")
+    print(f"Average Change: ")
+    print(f"Greatest Increase in Profits:")
+    print(f"Greatest Decrease in Profits:")
+
+output_path = os.path.join("Analysis","PyBankAanlysis.txt")
+with open(output_path,'w') as txtfile:
+     # printing statements to output file 
+    txtfile.write("Finacial Analysis")
+    txtfile.write("\n------------------------------------")
+    txtfile.write(f"\nTotal Months: {months_count}")
+    txtfile.write(f"\nTotal: ${net}")
+    txtfile.write(f"\nAverage Change: ")
+    txtfile.write(f"\nGreatest Increase in Profits:")
+    txtfile.write(f"\nGreatest Decrease in Profits:")
