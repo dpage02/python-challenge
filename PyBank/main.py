@@ -15,9 +15,9 @@ with open(budget_csv) as csvfile:
     months_count = 0
     greatest_inc = 0
     greatest_dec = 0
-    last_month = int(next_line[-1])
-    this_month = int(next_line[+1])
-    
+    values = []
+    change =[]
+
     for row in csvreader:
 
         # getting months count
@@ -25,11 +25,11 @@ with open(budget_csv) as csvfile:
 
         # getting net total 
         net += int(row[1])
-        avg_change = net / (months_count )
+        
+        # adding value to dict
+        values.append(row[1])
+
        
-    
-
-
 
     # printing statements 
     print("Finacial Analysis")
