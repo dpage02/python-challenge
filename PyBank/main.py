@@ -29,8 +29,15 @@ with open(budget_csv) as csvfile:
         # adding value to dict
         values.append(row[1])
 
-       
+    for i in range(len(values)-1):
+        last_month = int(values[i])
+        this_month = int(values[i+1])
+        profit = this_month-last_month
+        change.append(profit)
 
+    greatest_inc = max(change)
+    greatest_dec = min(change)
+    
     # printing statements 
     print("Finacial Analysis")
     print("------------------------------------")
@@ -48,5 +55,5 @@ with open(output_path,'w') as txtfile:
     txtfile.write(f"\nTotal Months: {months_count}")
     txtfile.write(f"\nTotal: ${net}")
     txtfile.write(f"\nAverage Change: ")
-    txtfile.write(f"\nGreatest Increase in Profits:")
-    txtfile.write(f"\nGreatest Decrease in Profits:")
+    txtfile.write(f"\nGreatest Increase in Profits: {greatest_inc}")
+    txtfile.write(f"\nGreatest Decrease in Profits: {greatest_dec}")

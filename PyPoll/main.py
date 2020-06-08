@@ -42,7 +42,7 @@ with open(polling_csv) as csvfile:
     vote_dict["O'Tooley"] = Otooley_votes
     
      # getting percentages 
-    khan_percentage = round((Khan_votes/total_votes) * 100,3)
+    khan_percentage = f"{((Khan_votes/total_votes) * 100):.2f}"
     correy_percentage = (Correy_votes/total_votes)*100
     li_percenatage = (Li_votes/total_votes)*100
     otooley_percentage = (Otooley_votes/total_votes)*100
