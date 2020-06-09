@@ -8,77 +8,50 @@ with open(polling_csv) as csvfile:
 
     # reaer header first and going to next line
     header = next(csvreader)
-    
-    # variables 
+
     total_votes = 0 
-    Khan_votes = 0 
-    Correy_votes = 0
-    Li_votes = 0
-    Otooley_votes = 0 
+    canidates = []
+    votes = []
+    candidate_vote_dict ={}
 
-    # create dictionary to keep names and vote total 
-    vote_dict = {}
-
-    # start loop through csv
     for row in csvreader:
 
-        #to get total votes
         total_votes += 1
 
-        # to get individual vote counts
-        if row[2] == "Khan":
-            Khan_votes += 1
-        elif row[2] == "Correy":
-            Correy_votes += 1
-        elif row[2] == "Li":
-            Li_votes += 1
-        else :
-            Otooley_votes += 1
+        if row[2] not in canidates:
+            canidates.append(row[2])
+        
+        votes.append(row[2])
+        
+    for name in canidates:
+        vote_counter = votes.count(name)
+
+        vote_percentage = f"{((vote_counter/total_votes)*100):.3f}"
+        candidate_vote_dict[name] = [vote_counter, vote_percentage]
     
-    # addind names: votes to dictionary 
-    vote_dict["Khan"] = Khan_votes
-    vote_dict["Correy"] = Correy_votes
-    vote_dict["Li"] = Li_votes
-    vote_dict["O'Tooley"] = Otooley_votes
+    winner = max(candidate_vote_dict, key=candidate_vote_dict.get)
+    #winning_votes = max(candidate_vote_dict.values())
     
-     # getting percentages 
-    khan_percentage = f"{((Khan_votes/total_votes) * 100):.2f}"
-    correy_percentage = (Correy_votes/total_votes)*100
-    li_percenatage = (Li_votes/total_votes)*100
-    otooley_percentage = (Otooley_votes/total_votes)*100
-
-
-    # Getting most votes number
-    values = vote_dict.values()
-    most_votes = max(values)
-    # Getting name out of dictionary 
-    for name, votes in vote_dict.items():
-        if most_votes == votes:
-            winner = name
-
-    # printing statements
+    
     print("Election Results")
-    print("-----------------------")
-    print(f"Total votes: {total_votes}") 
-    print("-----------------------")
-    print(f"Khan: {khan_percentage}% ({Khan_votes})")
-    print(f"Correy: {correy_percentage}% ({Correy_votes})")
-    print(f"Li: {li_percenatage}% ({Li_votes})")
-    print(f"O'Tooley: {otooley_percentage}% ({Otooley_votes})")
-    print("-----------------------")
+    print("--------------------")
+    print(f"Total votes: {total_votes}")
+    print("--------------------")
+    for name, values in candidate_vote_dict.items():
+        print(f"{name}: {values[1]}% ({values[0]})")
+    print("--------------------")
     print(f"Winner: {winner}")
-    print("-----------------------")
+    print("--------------------")
 
-output_path = os.path.join("Analysis","PyPollAanlysis.txt")
-with open(output_path,'w') as txtfile:
+
+output_path = os.path.join("Analysis", "PyPollAnalysis.txt")
+with open(output_path, 'w') as txtfile:
     txtfile.write("Election Results")
-    txtfile.write("\n-----------------------")
-    txtfile.write(f"\nTotal votes: {total_votes}") 
-    txtfile.write("\n-----------------------")
-    txtfile.write(f"\nKhan: {khan_percentage}% ({Khan_votes})")
-    txtfile.write(f"\nCorrey: {correy_percentage}% ({Correy_votes})")
-    txtfile.write(f"\nLi: {li_percenatage}% ({Li_votes})")
-    txtfile.write(f"\nO'Tooley: {otooley_percentage}% ({Otooley_votes})")
-    txtfile.write("\n-----------------------")
+    txtfile.write("\n--------------------")
+    txtfile.write(f"\nTotal votes: {total_votes}")
+    txtfile.write("\n--------------------")
+    for name, values in candidate_vote_dict.items():
+        txtfile.write(f"\n{name}: {values[1]}% ({values[0]})")
+    txtfile.write("\n--------------------")
     txtfile.write(f"\nWinner: {winner}")
-    txtfile.write("\n-----------------------")
+    txtfile.write("\n--------------------")
