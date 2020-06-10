@@ -45,7 +45,7 @@ with open(budget_csv) as csvfile:
     dec_month = months[dec_month_index + 1]
 
     # getting average change
-    avg_change= sum(change)/len(change)+1
+    avg_change= f"{(sum(change)/len(change)+1):.2f}"
     #print(avg_change)
 
     # printing statements 
@@ -53,9 +53,9 @@ with open(budget_csv) as csvfile:
     print("------------------------------------")
     print(f"Total Months: {months_count}")
     print(f"Total: ${net}")
-    print(f"Average Change: {avg_change}")
-    print(f"Greatest Increase in Profits:{inc_month} ({greatest_inc})")
-    print(f"Greatest Decrease in Profits:{dec_month} ({greatest_dec})")
+    print(f"Average Change: ${avg_change}")
+    print(f"Greatest Increase in Profits:{inc_month} (${greatest_inc})")
+    print(f"Greatest Decrease in Profits:{dec_month} (${greatest_dec})")
 
 output_path = os.path.join("Analysis","PyBankAanlysis.txt")
 with open(output_path,'w') as txtfile:
@@ -64,6 +64,6 @@ with open(output_path,'w') as txtfile:
     txtfile.write("\n------------------------------------")
     txtfile.write(f"\nTotal Months: {months_count}")
     txtfile.write(f"\nTotal: ${net}")
-    txtfile.write(f"\nAverage Change: ")
-    txtfile.write(f"\nGreatest Increase in Profits: {inc_month} ({greatest_inc})")
-    txtfile.write(f"\nGreatest Decrease in Profits: {dec_month} ({greatest_dec})")
+    txtfile.write(f"\nAverage Change: ${avg_change}")
+    txtfile.write(f"\nGreatest Increase in Profits: {inc_month} (${greatest_inc})")
+    txtfile.write(f"\nGreatest Decrease in Profits: {dec_month} (${greatest_dec})")
